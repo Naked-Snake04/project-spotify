@@ -4,13 +4,22 @@
     box-sizing: border-box;
 }
 
+@font-face {
+    font-family: 'spotify-circular-cyrillic';
+    src: url(https://open.scdn.co/cdn/fonts/CircularSpUICyrOnly-Book.6a858994.woff2);
+}
+
 .app {
     display: grid;
     height: 100vh;
-    overflow: hidden;
     grid-template-columns: 150px 1fr;
     grid-template-rows: min-content 1fr min-content;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.name{
+    text-align: left;
+    padding: 15px;
 }
 
 .header{
@@ -49,8 +58,9 @@
 .content {
     display: flex;
     background-color: #97A9B4;
-    align-items: center;
-    justify-content: center;
+    overflow: scroll;
+    overflow-x: hidden;
+    line-height: 30px;
     flex-direction: column;
 }
 
@@ -88,4 +98,69 @@
 
 .link:hover {
     text-decoration: underline;
+}
+
+.artist_data {
+    display: flex;
+    width: auto;
+}
+
+.picture {
+    background: #1c1c1c00;
+    border: none;
+}
+
+.data_container {
+    margin-right: 0px;
+    margin-left: auto;
+}
+
+.data {
+    display: flex;
+}
+
+.playlist-name {
+    color: #fff;
+    text-align: left;
+    padding-left: 7px;
+}
+
+.number {
+    color: #4bdf80;
+}
+
+.artist_name {
+    font-size: 20px;
+    color: #fff;
+    font-family: 'spotify-circular-cyrillic', Helvetica, Arial, sans-serif;
+    display: flex;
+    align-items: center;
+    margin-left: 10px;
+}
+
+.card {
+    display: block;
+    padding: 10px;
+    background-color: #343434;
+    border-radius: 5px;
+    position: relative;
+    margin-left: 15px;
+    margin-right: 15px;
+    margin-top: 15px;
+}
+
+.song_artist_name {
+    font-size: 14px;
+    color: #808080;
+    margin-left: 10px;
+    font-family: 'spotify-circular-cyrillic', Helvetica, Arial, sans-serif;
+}
+
+.data_search {
+    align-items: center;
+}
+
+.value {
+    color: #4bdf80;
+    font-size: 16px;
 }
