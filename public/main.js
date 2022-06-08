@@ -1,6 +1,6 @@
 const KEY = "a15921d44a0fcd14ba611ad341dbf3d6";
 const MAIN_URL = `https://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=edm&api_key=a15921d44a0fcd14ba611ad341dbf3d6&format=json`;
-const ERR = 'Произошла ошибка. Тип ошибки выше'
+const ERR = "Данные по запросу не найдены"
 
 /** GET-запрос к last.fm */
 function getData(url) {
@@ -22,6 +22,7 @@ function getTop() {
 		}
 	}
 	);
+	return;
 }
 
 /** Вызов getTop */
@@ -29,11 +30,11 @@ getTop();
 
 /** Поиск */
 document.querySelector(".header__search").addEventListener("keydown", (e) => {
+	const content = document.querySelector(".content-body");
+	const heading = document.querySelector(".name");
 	if (e.keyCode === 13) {
 		if (e.target.value === "") {
-			const content = document.querySelector(".content-body");
 			content.textContent = "";
-			const heading = document.querySelector(".name");
 			heading.textContent = "Популярные исполнители: ";
 			getTop();
 		} else {
@@ -41,9 +42,7 @@ document.querySelector(".header__search").addEventListener("keydown", (e) => {
 					`https://ws.audioscrobbler.com/2.0/?method=track.search&limit=100&track=${e.target.value}&api_key=${KEY}&format=json`
 				)
 				.then((result) => {
-					const content = document.querySelector(".content-body");
 					content.textContent = "";
-					const heading = document.querySelector(".name");
 					heading.textContent = "Результаты поиска: ";
 					if (typeof result === 'undefined') {
 						console.log(ERR);
@@ -58,7 +57,7 @@ document.querySelector(".header__search").addEventListener("keydown", (e) => {
 		}
 	});
 	
-/** Результаты поиска */
+/** Создание результатов поиска */
 function searchValues(item) {
 	const container = document.querySelector(".content-body");
 	
@@ -75,7 +74,7 @@ function searchValues(item) {
 	artistData.appendChild(addContainerListener(item));
 }
 	
-/** Карточки о популярных артистах */
+/** Создание карточек с информацией о популярных композициях */
 function topArtists(item) {
 	const container = document.querySelector(".content-body");
 
@@ -99,7 +98,7 @@ function addTrackName(item) {
 	name.appendChild(document.createTextNode(item.name));
 	return name;
 }
-/** Создание контейнера-столбца с информацией о треке */
+/** Создание столбца с информацией о треке */
 function addContainer(item) {
 	const dataContainer = document.createElement('div');
 
@@ -112,7 +111,7 @@ function addContainer(item) {
 	return dataContainer;
 }
 
-/** Столбец для слушателей */
+/** Создание столбца с информацией о прослушиваниях */
 function addContainerListener(item) {
 	const dataContainer = document.createElement('div');
 	const dataAlbum = document.createElement('div');
@@ -127,7 +126,7 @@ function addContainerListener(item) {
 	return dataContainer;
 }
 
-/** Информация об артисте */
+/** Создание информации об исполнителе */
 function addArtist(item) {
 	const dataAlbum = document.createElement('div');
 	
@@ -139,7 +138,7 @@ function addArtist(item) {
 	return dataAlbum;
 }
 
-/** Метка для артиста */
+/** Создание поля исполнителя */
 function addArtistLabel() {
 	const album = document.createElement('p');
 	album.className = "playlist-name";
@@ -147,7 +146,7 @@ function addArtistLabel() {
 	return album;
 }
 
-/** Позиция трека */
+/** Создание информации о позиции трека */
 function addPlace(item) {
 	const dataPlace = document.createElement('div');
 
@@ -159,7 +158,7 @@ function addPlace(item) {
 	return dataPlace;
 }
 
-/** Метка позиции трека */
+/** Создание поля позиции трека */
 function addPlaceLabel() {
 	const place = document.createElement('p');
 	place.className = "playlist-name";
@@ -167,7 +166,7 @@ function addPlaceLabel() {
 	return place;
 }
 
-/** Значение-ссылка артиста */
+/** Создание значения-ссылки об исполнителе */
 function addValue(item, choice) {
 	const value = document.createElement('p');
 	const aElement = document.createElement("a");
@@ -185,7 +184,7 @@ function addValue(item, choice) {
 	return value;
 }
 
-/** Значение позиции трека */
+/** Создание значения позиции трека */
 function addPlaceValue(item) {
 	const placeNumber = document.createElement('p');
 	placeNumber.className = "playlist-name number";
@@ -193,7 +192,7 @@ function addPlaceValue(item) {
 	return placeNumber;
 }
 
-/** Информация о треке */
+/** Создание информации о треке */
 function addInfo(item) {
 	const data = document.createElement('div');
 
@@ -203,7 +202,7 @@ function addInfo(item) {
 	return data;
 }
 
-/** Информация о названии трека */
+/** Создание информации о названии трека */
 function addInfoTrack(item) {
 	const name = document.createElement('p');
 	name.className = "artist_name";
@@ -211,7 +210,7 @@ function addInfoTrack(item) {
 	return name;
 }
 
-/** Информация об артисте */
+/** Создание информации об исполнителе трека */
 function addInfoArtist(item) {
 	const artist = document.createElement('p');
 	artist.className = "song_artist_name";
@@ -219,7 +218,7 @@ function addInfoArtist(item) {
 	return artist;
 }
 
-/** Метка слушателей */
+/** Создание поля прослушиваний трека */
 function addListenerLabel() {
 	const album = document.createElement('p');
 	album.className = "playlist-name";
@@ -227,7 +226,7 @@ function addListenerLabel() {
 	return album;
 }
 
-/** Изображение для треков */
+/** Создание иконки трека */
 function addImage() {
 	const buttonData = document.createElement("button");
 	const img = document.createElement('img');
