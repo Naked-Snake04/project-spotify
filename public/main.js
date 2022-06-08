@@ -9,7 +9,7 @@ function getData(url) {
 		.catch((e) => console.log(e));
 }
 
-/** Обработка информации о топе */
+/** Получение топа исполнителей */
 function getTop() {
 	getData(MAIN_URL).then((data) => {
 		if (typeof data === 'undefined') {
@@ -17,7 +17,7 @@ function getTop() {
 		}
 		else {
 			data.albums.album.forEach((item) => {
-				topArtists(item);
+				createTopArtistsCard(item);
 			})
 		}
 	}
@@ -49,7 +49,7 @@ document.querySelector(".header__search").addEventListener("keydown", (e) => {
 					}
 					else {
 						result.results.trackmatches.track.forEach((item) => {
-							searchValues(item);
+							createSearchValues(item);
 						});
 					}
 				})
@@ -58,7 +58,7 @@ document.querySelector(".header__search").addEventListener("keydown", (e) => {
 	});
 	
 /** Создание результатов поиска */
-function searchValues(item) {
+function createSearchValues(item) {
 	const container = document.querySelector(".content-body");
 	
 	const element = document.createElement("div");
@@ -69,13 +69,13 @@ function searchValues(item) {
 	
 	container.appendChild(element);
 	element.appendChild(artistData);
-	artistData.appendChild(addImage());
-	artistData.appendChild(addInfo(item));
-	artistData.appendChild(addContainerListener(item));
+	artistData.appendChild(createImage());
+	artistData.appendChild(createInfo(item));
+	artistData.appendChild(createContainerListener(item));
 }
 	
 /** Создание карточек с информацией о популярных композициях */
-function topArtists(item) {
+function createTopArtistsCard(item) {
 	const container = document.querySelector(".content-body");
 
 	const element = document.createElement("div");
@@ -86,33 +86,33 @@ function topArtists(item) {
 
 	container.appendChild(element);
 	element.appendChild(artistData);
-	artistData.appendChild(addImage());
-	artistData.appendChild(addTrackName(item));
-	artistData.appendChild(addContainer(item));
+	artistData.appendChild(createImage());
+	artistData.appendChild(createTrackName(item));
+	artistData.appendChild(createInfoTrackContainer(item));
 }
 
 /** Добавление названия трека */
-function addTrackName(item) {
+function createTrackName(item) {
 	const name = document.createElement('p');
 	name.className = "artist_name";
 	name.appendChild(document.createTextNode(item.name));
 	return name;
 }
 /** Создание столбца с информацией о треке */
-function addContainer(item) {
+function createInfoTrackContainer(item) {
 	const dataContainer = document.createElement('div');
 
 	dataContainer.className = "data_container";
 
-	dataContainer.appendChild(addArtist(item));
+	dataContainer.appendChild(createArtistInfo(item));
 	dataContainer.appendChild(document.createElement('hr'));
-	dataContainer.appendChild(addPlace(item));
+	dataContainer.appendChild(createTrackPlace(item));
 	
 	return dataContainer;
 }
 
 /** Создание столбца с информацией о прослушиваниях */
-function addContainerListener(item) {
+function createContainerListener(item) {
 	const dataContainer = document.createElement('div');
 	const dataAlbum = document.createElement('div');
 	
@@ -120,26 +120,26 @@ function addContainerListener(item) {
 	dataAlbum.className = "data";
 	
 	dataContainer.appendChild(dataAlbum);
-	dataAlbum.appendChild(addListenerLabel());
-	dataAlbum.appendChild(addValue(item, 'listener'));
+	dataAlbum.appendChild(createListenerLabel());
+	dataAlbum.appendChild(createArtistValue(item, 'listener'));
 	
 	return dataContainer;
 }
 
 /** Создание информации об исполнителе */
-function addArtist(item) {
+function createArtistInfo(item) {
 	const dataAlbum = document.createElement('div');
 	
 	dataAlbum.className = "data";
 	
-	dataAlbum.appendChild(addArtistLabel());
-	dataAlbum.appendChild(addValue(item, 'artist'));
+	dataAlbum.appendChild(createArtistLabel());
+	dataAlbum.appendChild(createArtistValue(item, 'artist'));
 	
 	return dataAlbum;
 }
 
 /** Создание поля исполнителя */
-function addArtistLabel() {
+function createArtistLabel() {
 	const album = document.createElement('p');
 	album.className = "playlist-name";
 	album.appendChild(document.createTextNode("Исполнитель альбома: "));
@@ -147,19 +147,19 @@ function addArtistLabel() {
 }
 
 /** Создание информации о позиции трека */
-function addPlace(item) {
+function createTrackPlace(item) {
 	const dataPlace = document.createElement('div');
 
 	dataPlace.className = "data";
 
-	dataPlace.appendChild(addPlaceLabel());
-	dataPlace.appendChild(addPlaceValue(item));
+	dataPlace.appendChild(createTrackPlaceLabel());
+	dataPlace.appendChild(createTrackPlaceValue(item));
 
 	return dataPlace;
 }
 
 /** Создание поля позиции трека */
-function addPlaceLabel() {
+function createTrackPlaceLabel() {
 	const place = document.createElement('p');
 	place.className = "playlist-name";
 	place.appendChild(document.createTextNode("Место: "));
@@ -167,7 +167,7 @@ function addPlaceLabel() {
 }
 
 /** Создание значения-ссылки об исполнителе */
-function addValue(item, choice) {
+function createArtistValue(item, choice) {
 	const value = document.createElement('p');
 	const aElement = document.createElement("a");
 
@@ -185,7 +185,7 @@ function addValue(item, choice) {
 }
 
 /** Создание значения позиции трека */
-function addPlaceValue(item) {
+function createTrackPlaceValue(item) {
 	const placeNumber = document.createElement('p');
 	placeNumber.className = "playlist-name number";
 	placeNumber.appendChild(document.createTextNode(item["@attr"].rank));
@@ -193,17 +193,17 @@ function addPlaceValue(item) {
 }
 
 /** Создание информации о треке */
-function addInfo(item) {
+function createInfo(item) {
 	const data = document.createElement('div');
 
-	data.appendChild(addInfoTrack(item));
-	data.appendChild(addInfoArtist(item));
+	data.appendChild(createInfoTrack(item));
+	data.appendChild(createInfoArtist(item));
 
 	return data;
 }
 
 /** Создание информации о названии трека */
-function addInfoTrack(item) {
+function createInfoTrack(item) {
 	const name = document.createElement('p');
 	name.className = "artist_name";
 	name.appendChild(document.createTextNode(item.name));
@@ -211,7 +211,7 @@ function addInfoTrack(item) {
 }
 
 /** Создание информации об исполнителе трека */
-function addInfoArtist(item) {
+function createInfoArtist(item) {
 	const artist = document.createElement('p');
 	artist.className = "song_artist_name";
 	artist.appendChild(document.createTextNode(item.artist));
@@ -219,7 +219,7 @@ function addInfoArtist(item) {
 }
 
 /** Создание поля прослушиваний трека */
-function addListenerLabel() {
+function createListenerLabel() {
 	const album = document.createElement('p');
 	album.className = "playlist-name";
 	album.appendChild(document.createTextNode("Слушателей: "));
@@ -227,7 +227,7 @@ function addListenerLabel() {
 }
 
 /** Создание иконки трека */
-function addImage() {
+function createImage() {
 	const buttonData = document.createElement("button");
 	const img = document.createElement('img');
 
