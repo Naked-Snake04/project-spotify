@@ -29,14 +29,14 @@ function Header() {
   }
   return (
     <header className="header">
-      <a href="/" className="header__logo link">
-        <img src="./logo.png" alt="Логотип" width="30%" height="40" max-width="5" />
-        <h1 className="header__title">Spotify Clone</h1>
+      <a href="/" class="header__logo">
+        <img src="./logo.png" alt="logo" width="32" height="32" />
+        <h1 class="header__title">Spotify Clone</h1>
       </a>
       <input
         type="search"
         className="header__search"
-        placeholder="Исполнитель, трек или подкаст"
+        placeholder="Найти песню"
         onKeyDown={(e) => {
           if (e.key === "Enter") {
             getResult(e.target.value);
