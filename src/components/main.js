@@ -26,7 +26,7 @@ function Main() {
   function getApiData(url) {
     return fetch(url)
       .then((res) => res.json())
-      .catch((e) => console.log(e));
+      .catch(console.log(ERR));
   }
 
   if (searchData.length === 0) {

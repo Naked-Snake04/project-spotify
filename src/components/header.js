@@ -1,21 +1,15 @@
 import React from "react";
 import { HeaderContext } from "../context";
 import { useContext } from "react";
+import Request from "./request";
 
 function Header() {
   const { setSearchData } = useContext(HeaderContext);
   const ERR = 'Данные по запросу не найдены';
-
-
-  function getApiData(url) {
-    return fetch(url)
-      .then((res) => res.json())
-      .catch((e) => console.log(e));
-  }
-
+  
   function getResult(value) {
     if (value !== "") {
-      getApiData(
+      Request.getApiData(
         `https://ws.audioscrobbler.com/2.0/?method=track.search&limit=100&track=${value}&api_key=a15921d44a0fcd14ba611ad341dbf3d6&format=json`
       ).then((data) => {
         if (typeof data === 'undefined') {
