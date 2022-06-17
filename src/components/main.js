@@ -5,7 +5,7 @@ import { MainContext } from "../context";
 function Main() {
   const [topArtists, setTopArtists] = useState([]);
   const { searchData } = useContext(MainContext);
-  const getTopUrl = "https://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=edm&api_key=a15921d44a0fcd14ba611ad341dbf3d6&format=json";
+  const getTopUrl = "https://ws.audioscrobbler.com/2.0/?method=tag.gettopalbums&tag=metal&api_key=a15921d44a0fcd14ba611ad341dbf3d6&format=json";
   const ERR = 'Данные по запросу не найдены';
 
   useEffect(() => {
@@ -26,7 +26,7 @@ function Main() {
   function getApiData(url) {
     return fetch(url)
       .then((res) => res.json())
-      .catch(console.log(ERR));
+      .catch((e) => console.log(e, ERR));
   }
 
   if (searchData.length === 0) {

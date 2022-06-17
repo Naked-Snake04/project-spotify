@@ -3,15 +3,15 @@ import React from "react";
 
 function Footer() {
   return (
-    <footer class="footer">
+    <footer className="footer">
         <p>© Basov inc. 2022</p>
-        <nav class="footer__navigation">
-          <a class="link" href="/">О нас</a>
-          <a class="link" href="/">Насчёт....</a>
-          <a class="link"
+        <nav className="footer__navigation">
+          <a className="link" href="/">О нас</a>
+          <a className="link" href="/">Насчёт....</a>
+          <a className="link"
           href="https://github.com/Naked-Snake04"
           target="_blank"
-          rel="noopener">
+          rel="noreferrer noopener">
         Github создателя</a>
         </nav>
     </footer>
