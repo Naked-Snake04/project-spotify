@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import TopCard from "./topCard";
 import Card from "./card";
 import { MainContext } from "../context";
+import { getApiData } from "./getApiData";
 function Main() {
   const [topArtists, setTopArtists] = useState([]);
   const { searchData } = useContext(MainContext);
@@ -21,13 +22,6 @@ function Main() {
     };
     getTop();
   }, []);
-
-
-  function getApiData(url) {
-    return fetch(url)
-      .then((res) => res.json())
-      .catch((e) => console.log(e, ERR));
-  }
 
   if (searchData.length === 0) {
     return (

@@ -1,15 +1,12 @@
 import React from 'react';
 import { useContext } from "react";
 import { Context } from "../context";
+import { getApiData } from './getApiData';
 
 function Input() {
     const ERR = 'Данные по запросу не найдены';
     const { setSearchData } = useContext(Context);
-    function getApiData(url) {
-        return fetch(url)
-          .then((res) => res.json())
-          .catch((e) => console.log(e, ERR));
-      }
+
     function getResult(value) {
         if (value !== "") {
           getApiData(
